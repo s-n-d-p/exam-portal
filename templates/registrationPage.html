@@ -13,8 +13,9 @@
                     Last Name: <input type="text" required> <br>
                     DOB: <input type="date" required> <br>
                     Email: <input type="email"> <br>
-                    Mobile: <input type="tel"> <br>
+                    Re-enter Email: <input type="email" id="re_email"> <br>
                     Password: <input type="password"> <br>
+                    Re-enter Password: <input type="password" id="re_password"> <br>
                 </fieldset>
                 <fieldset>
                     <legend>Educational Information:</legend> 
@@ -24,5 +25,18 @@
                 <input type="submit" value="Register">
             </fieldset>
         </form>
+        <script>
+            // No pasting feature
+            var re_email = document.getElementById("re_email");
+            re_email.onpaste = e => {
+                e.preventDefault();
+                return false;
+            };
+            var re_password = document.getElementById("re_password");
+            re_password.onpaste = e => {
+                e.preventDefault();
+                return false;
+            };
+        </script>
     </body>
 </html>
