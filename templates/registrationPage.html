@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>User Registration</title>
+        <title>User Registration | Exam Portal</title>
     </head>
     <body>
         <form action="">
@@ -27,13 +27,11 @@
         </form>
         <script>
             // No pasting feature
-            var re_email = document.getElementById("re_email");
-            re_email.onpaste = e => {
+            document.getElementById("re_email").onpaste = e => {
                 e.preventDefault();
                 return false;
             };
-            var re_password = document.getElementById("re_password");
-            re_password.onpaste = e => {
+            document.getElementById("re_password").onpaste = e => {
                 e.preventDefault();
                 return false;
             };
