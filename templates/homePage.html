@@ -1,23 +1,36 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css">
         <link rel="stylesheet" href="../static/css/styles.css">
+        <link rel="icon" href="../static/images/icon.jpg">
         <title>Welcome | Exam Portal</title>
     </head>
     <body>
-        <form action="">
-            <fieldset>
-                <legend>Sign In</legend>
-                <fieldset>
-                <legend>Enter your credentials:</legend> 
-                    Username: <input type="text" required> <br>
-                    Password: <input type="password" required> <br>
-                </fieldset>
-                <input type="submit" value="Login">
-                <input type="button" value="Sign-up" onclick="location.href = './registrationPage.html'"> <br>
-                
-                <a href="">Forgot Password?</a>
-            </fieldset>
-        </form>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3"></div>
+                <div class="col-lg-6">
+                    <div class="container-fluid">
+                        <form action="">
+                            <div class="row">
+                                <div class="col-lg-3"></div>
+                                <div class="col-lg-6" style="text-align:center; vertical-align:middle;">
+                                    <legend>Sign In</legend>                                   
+                                    <div style="font-weight:lighter;">With your ExamPortal Account</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                Username: <input type="text" required> <br>
+                                Password: <input type="password" required> <br>
+                                <input type="submit" class="btn" value="Login">
+                                <input type="button" class="btn" value="Sign-up" onclick="location.href = './registrationPage.html'"> <br>
+                                <a href="">Forgot Password?</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
