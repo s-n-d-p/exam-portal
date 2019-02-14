@@ -1,4 +1,4 @@
-input{
+input {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
@@ -6,6 +6,7 @@ input{
     border-radius: 4px;
 }
 
-input[type=submit], input[type=button] {
+input[type="submit"],
+input[type="button"] {
     background-color: #4285f4;
 }

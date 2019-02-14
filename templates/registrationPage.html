@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css">
-        <link rel="stylesheet" href="../static/css/styles.css">
-        <link rel="icon" href="../static/images/icon.jpg">
+        <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css" />
+        <link rel="stylesheet" href="../static/css/styles.css" />
+        <link rel="icon" href="../static/images/icon.jpg" />
         <title>User Registration | Exam Portal</title>
     </head>
     <body>
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3"></div>
@@ -17,20 +16,31 @@
                             <legend>USER REGISTRATION</legend>
                         </div>
                         <div class="row">
-                            <legend>Personal Information:</legend> 
-                                First Name: <input type="text" required> <br>
-                                Last Name: <input type="text" required> <br>
-                                DOB: <input type="date" required> <br>
-                                Email: <input type="email"> <br>
-                                Re-enter Email: <input type="email" id="re_email"> <br>
-                                Password: <input type="password"> <br>
-                                Re-enter Password: <input type="password" id="re_password"> <br>
-                            <legend>Educational Information:</legend> 
-                                Qualification: <br>
-                                College/University: <br>
-                            <input type="checkbox" onchange="toggleSubmit(this)">
-                            <input type="submit" id="submit" class="btn" value="Register" disabled>
-                        </div>                            
+                            <legend>Personal Information:</legend>
+                            First Name: <input type="text" required /> <br />
+                            Last Name: <input type="text" required /> <br />
+                            DOB: <input type="date" required /> <br />
+                            Email: <input type="email" /> <br />
+                            Re-enter Email:
+                            <input type="email" id="re_email" /> <br />
+                            Password: <input type="password" /> <br />
+                            Re-enter Password:
+                            <input type="password" id="re_password" /> <br />
+                            <legend>Educational Information:</legend>
+                            Qualification: <br />
+                            College/University: <br />
+                            <input
+                                type="checkbox"
+                                onchange="toggleSubmit(this)"
+                            />
+                            <input
+                                type="submit"
+                                id="submit"
+                                class="btn"
+                                value="Register"
+                                disabled
+                            />
+                        </div>
                     </form>
                 </div>
             </div>
@@ -46,9 +56,10 @@
                 return false;
             };
             const toggleSubmit = e => {
-                if(e.checked) document.getElementById("submit").disabled = false;
+                if (e.checked)
+                    document.getElementById("submit").disabled = false;
                 else document.getElementById("submit").disabled = true;
-            }
+            };
         </script>
     </body>
 </html>
