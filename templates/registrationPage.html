@@ -17,18 +17,18 @@
                         </div>
                         <div class="row">
                             <legend>Personal Information:</legend>
-                            First Name: <input type="text" required /> <br />
-                            Last Name: <input type="text" required /> <br />
-                            DOB: <input type="date" required /> <br />
-                            Email: <input type="email" /> <br />
+                            First Name: <input type="text" name="first_name"required /> <br />
+                            Last Name: <input type="text" name="last_name" required /> <br />
+                            DOB: <input type="date" name="dob" required /> <br />
+                            Email: <input type="email" name="email"/> <br />
                             Re-enter Email:
-                            <input type="email" id="re_email" /> <br />
-                            Password: <input type="password" /> <br />
+                            <input type="email" id="re_email"/> <br />
+                            Password: <input type="password" name="password"/> <br />
                             Re-enter Password:
                             <input type="password" id="re_password" /> <br />
                             <legend>Educational Information:</legend>
-                            CGPA: <input type="number" min="0" max="10" step="0.01"><br />
-                            Course: <select>
+                            CGPA: <input type="number" name="cgpa" min="0" max="10" step="0.01"><br />
+                            Course: <select name="course">
                           		
                           						<option value="btech">B.Tech</option>
 												<option value="mtech">M.Tech</option>
