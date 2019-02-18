@@ -18,7 +18,7 @@
 --
 -- Table structure for table `ExamResult`
 --
-USE `ExamPortal`;
+
 DROP TABLE IF EXISTS `ExamResult`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -107,8 +107,9 @@ CREATE TABLE `Student` (
   `password` varchar(200) NOT NULL,
   `first_name` varchar(200) NOT NULL,
   `last_name` varchar(200) DEFAULT NULL,
-  `college` varchar(200) NOT NULL,
+  `course` varchar(200) NOT NULL,
   `cgpa` decimal(10,0) NOT NULL,
+  `dob` date DEFAULT NULL,
   PRIMARY KEY (`email_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -119,7 +120,7 @@ CREATE TABLE `Student` (
 
 LOCK TABLES `Student` WRITE;
 /*!40000 ALTER TABLE `Student` DISABLE KEYS */;
-INSERT INTO `Student` VALUES ('$email_id','$hashed','$first_name','$last_name','NITC',10),('g@gmail.com','$2y$10$bCvoxVogmk7RB10ly9/h1e8FI7aCVbEOLolVigdf/SNCcOLRURYA2','testname','maef','NITC',10);
+INSERT INTO `Student` VALUES ('g@gmail.com','$2y$10$bCvoxVogmk7RB10ly9/h1e8FI7aCVbEOLolVigdf/SNCcOLRURYA2','testname','maef','NITC',10,'2019-02-03'),('gaz@gmail.com','$2y$10$1533fLxH0TpNZPy02noHvOttVJaE7Xa9t5S5ieaEMKdprfwfn8qbm','Gazala','Muhamed','mtech',10,'1997-06-05');
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -132,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-18 15:14:21
+-- Dump completed on 2019-02-18 17:12:15
