@@ -1,9 +1,12 @@
-input {
+input, select {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border-radius: 4px;
+}
+input[type="checkbox"] {
+    width: 20px;
 }
 
 input[type="submit"],
@@ -25,3 +28,4 @@ input[type="button"] {
         color: red;
     }
 }
+

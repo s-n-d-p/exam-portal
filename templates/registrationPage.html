@@ -27,12 +27,20 @@
                             Re-enter Password:
                             <input type="password" id="re_password" /> <br />
                             <legend>Educational Information:</legend>
-                            Qualification: <br />
-                            College/University: <br />
+                            CGPA: <input type="number" min="0" max="10" step="0.01"><br />
+                            Course: <select>
+                          		
+                          						<option value="btech">B.Tech</option>
+												<option value="mtech">M.Tech</option>
+                          						<option value="mca">MCA</option>
+
+                          					</select>
+                          <br />
                             <input
                                 type="checkbox"
                                 onchange="toggleSubmit(this)"
                             />
+							&nbsp; I agree that the furnished information is true to best of my knowledge.
                             <input
                                 type="submit"
                                 id="submit"
@@ -63,3 +71,4 @@
         </script>
     </body>
 </html>
+
