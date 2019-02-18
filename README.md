@@ -32,3 +32,13 @@
    2.3) To change the priority of files looked for
         edit this - /etc/apache2/mods-enabled/dir.conf - FCFS
 </pre>
+
+## MySQL
+
+<pre>
+    1. To create dump file - mysqldump -u username -p dbName > db_dump.sql
+    2. To import dump file
+        2.1) Create a db by that name
+        2.2) mysql -u username -p -D dbName < db_dump.sql
+</pre>
+
