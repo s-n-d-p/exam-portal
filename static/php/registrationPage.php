@@ -17,11 +17,11 @@
     
     $insert_query = "insert into Student(first_name, last_name, email_id, password, dob, course, cgpa) values('{$first_name}','${last_name}', '${email_id}', '${hashed_password}','${parsed_dob}','${course}', '${cgpa}')";
     
-    //echo $insert_query;
+    echo $insert_query;
     
     if(mysqli_query($conn,$insert_query)){
         echo "Successfully Registered!";
-        header("Location: ../../templates/homePage.html");
+        //header("Location: ../../templates/homePage.html");
     }
     else {
         echo "Could not register you :(";
