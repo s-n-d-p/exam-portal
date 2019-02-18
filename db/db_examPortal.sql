@@ -66,6 +66,7 @@ CREATE TABLE `ExamType` (
 
 LOCK TABLES `ExamType` WRITE;
 /*!40000 ALTER TABLE `ExamType` DISABLE KEYS */;
+INSERT INTO `ExamType` VALUES (1,'LAMP Stack',30,5);
 /*!40000 ALTER TABLE `ExamType` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,8 +80,9 @@ DROP TABLE IF EXISTS `QuestionBank`;
 CREATE TABLE `QuestionBank` (
   `exam_id` int(11) NOT NULL,
   `question` varchar(200) NOT NULL,
-  `choices` varchar(200) NOT NULL,
+  `choices` varchar(2000) NOT NULL,
   `correct` int(11) NOT NULL,
+  PRIMARY KEY (`question`),
   KEY `QuestionBank_exam` (`exam_id`),
   CONSTRAINT `QuestionBank_exam` FOREIGN KEY (`exam_id`) REFERENCES `ExamType` (`exam_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -92,6 +94,7 @@ CREATE TABLE `QuestionBank` (
 
 LOCK TABLES `QuestionBank` WRITE;
 /*!40000 ALTER TABLE `QuestionBank` DISABLE KEYS */;
+INSERT INTO `QuestionBank` VALUES (1,'MYSQL comes with a DATE data type. What\'s the format that DATE accepts?','DD-MM-YYYY|MM-DD-YYYY|YYYY-MM-DD|DD/MM/YYYY',3),(1,'What is the default port for HTTP and HTTPS?','22,23|80,443|433,80|443,80|80,22',2),(1,'What\'s the main difference between mysql_fetch_array and mysql_fetch_object?','Mysql_fetch_array returns an arrya, whereas mysql_fetch_object returns an object.|Mysql_fetch_array will fetch all the matching records, whereas mysql_fetch_object will only fetch the first record that matches the query.',2),(1,'What\'s the output of this PHP code?\r\n$a =  012;\r\necho $a / 4;','3|4|2.5|Error',3),(1,'Which of these is incorrect?','A Session is destroyed when the window is closed.| A Session is destroyed based on the session timeout set in your Apache Server.| A Session can be destroyed using session_destroy()',1);
 /*!40000 ALTER TABLE `QuestionBank` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -133,4 +136,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-18 23:24:41
+-- Dump completed on 2019-02-19  0:24:51
