@@ -14,7 +14,7 @@
             }
         ?>
         <div
-            class="container-fluid centralise text-white"
+            class="container-fluid centralise text-white font-weight-bold"
             style="background-image:url(../static/images/book.jpg); background-size:cover;"
         >
             <div class="row">
@@ -36,7 +36,12 @@
                             </div>
                             <div class="row">
                                 Username:
-                                <input type="text" name="email_id" required />
+                                <input
+                                    type="email"
+                                    name="email_id"
+                                    placeholder="Email Address (abc@xyz.com)"
+                                    required
+                                />
                                 <br />
                                 Password:
                                 <input
