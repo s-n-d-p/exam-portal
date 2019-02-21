@@ -2,12 +2,25 @@
 <html>
     <head>
         <title>Logging Out | Exam Portal</title>
+        <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css" />
+        <link rel="stylesheet" href="../static/css/styles.css" />
+        <link rel="icon" href="../static/images/icon.jpg" />
     </head>
     <body>
         <?php
             session_start() ;
             session_destroy();
         ?>
-        <h1>Thank You!</h1>
+        <div class="container centralise">
+            <div class="row">
+                <div class="col-lg-6">
+                    <img
+                        class="img-responsive"
+                        src="../static/images/thankYou.png"
+                        alt="Thank You!"
+                    />
+                </div>
+            </div>
+        </div>
     </body>
 </html>

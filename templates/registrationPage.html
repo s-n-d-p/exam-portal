@@ -11,36 +11,53 @@
             <div class="row">
                 <div class="col-lg-3"></div>
                 <div class="col-lg-6">
-                    <form action="../static/php/registrationPage.php" method="post">
+                    <form
+                        action="../static/php/registrationPage.php"
+                        method="post"
+                    >
                         <div class="row" style="text-align:center">
                             <legend>USER REGISTRATION</legend>
                         </div>
                         <div class="row">
                             <legend>Personal Information:</legend>
-                            First Name: <input type="text" name="first_name"required /> <br />
-                            Last Name: <input type="text" name="last_name" required /> <br />
-                            DOB: <input type="date" name="dob" required /> <br />
-                            Email: <input type="email" name="email_id"/> <br />
+                            First Name:
+                            <input type="text" name="first_name" required />
+                            <br />
+                            Last Name:
+                            <input type="text" name="last_name" required />
+                            <br />
+                            DOB: <input type="date" name="dob" required />
+                            <br />
+                            Email: <input type="email" name="email_id" /> <br />
                             Re-enter Email:
-                            <input type="email" id="re_email"/> <br />
-                            Password: <input type="password" name="password"/> <br />
+                            <input type="email" id="re_email" /> <br />
+                            Password: <input type="password" name="password" />
+                            <br />
                             Re-enter Password:
                             <input type="password" id="re_password" /> <br />
                             <legend>Educational Information:</legend>
-                            CGPA: <input type="number" name="cgpa" min="0" max="10" step="0.01"><br />
-                            Course: <select name="course">
-                          		
-                          						<option value="btech">B.Tech</option>
-												<option value="mtech">M.Tech</option>
-                          						<option value="mca">MCA</option>
-
-                          					</select>
-                          <br />
+                            CGPA:
+                            <input
+                                type="number"
+                                name="cgpa"
+                                min="0"
+                                max="10"
+                                step="0.01"
+                            /><br />
+                            Course:
+                            <select name="course">
+                                <option value="btech">B.Tech</option>
+                                <option value="mtech">M.Tech</option>
+                                <option value="mca">MCA</option>
+                            </select>
+                            <br />
                             <input
                                 type="checkbox"
                                 onchange="toggleSubmit(this)"
+                                id="checkbox"
                             />
-							&nbsp; I agree that the furnished information is true to best of my knowledge.
+                            &nbsp; I agree that the furnished information is
+                            true to best of my knowledge.
                             <input
                                 type="submit"
                                 id="submit"
@@ -68,7 +85,8 @@
                     document.getElementById("submit").disabled = false;
                 else document.getElementById("submit").disabled = true;
             };
+            document.getElementById("submit").disabled = true;
+            document.getElementById("checkbox").checked = false;
         </script>
     </body>
 </html>
-
