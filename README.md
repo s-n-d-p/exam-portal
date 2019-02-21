@@ -31,6 +31,9 @@
         near the place where such things are existing.
    2.3) To change the priority of files looked for
         edit this - /etc/apache2/mods-enabled/dir.conf - FCFS
+3. To allow PHP in .html files
+   3.1) Edit `/etc/apache2/apache2.conf`
+   3.2) Add the following line: `AddHandler application/x-httpd-php .html`
 </pre>
 
 ## MySQL

@@ -8,18 +8,88 @@
     </head>
 
     <body>
+        <?php
+            session_start();
+            if($_SESSION['sid']!=session_id()){
+                header("location:homePage.html");
+            }
+        ?>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-9"></div>
                 <div class="col-lg-3 text-right">
-                    <b>Time Remaining: </b><span id="timer"></span>
+                    <a href="./logoutPage.html">Logout</a>
+                    <b>Time Remaining: </b><span id="timer">
+                    <?php
+                        include '../db/db_connection.php';
+                        $conn= OpenCon();
+
+                        $exam_id = mysqli_real_escape_string($conn,$_POST['exam_id']);
+                        $exam_time_query ="select time_limit_sec from ExamType where exam_id = '{$exam_id}' LIMIT 1";
+                        $result = mysqli_query($conn,$exam_time_query);
+
+                        while($row = mysqli_fetch_array($result)) {
+                            $time = $row['time_limit_sec'];
+                        }
+                        echo $time;
+                        ?>
+                    </span>
                 </div>
             </div>
             <hr />
-            <div class="row">Questions</div>
+            <div class="row">
+                <h1>Questions</h1>
+            </div>
+            <div class="row">
+                <form action="../static/php/resultPage.php" method = "post" id="exam_form">
+
+                <?php
+                    $conn= OpenCon();
+                    $exam_id = mysqli_real_escape_string($conn,$_POST['exam_id']);
+
+                    echo '<input name="exam_id" value="'.$_POST['exam_id'].'" hidden>';
+                    $exam_question_query ="select question,choices,correct from QuestionBank where exam_id='{$exam_id}'";
+
+                    $result = mysqli_query($conn,$exam_question_query);
+                    $total_count = mysqli_num_rows($result);
+                    $q_no = 1;
+                    foreach($result as $row){
+                        if($q_no==1){
+                            $displayToggle="show_question";
+                        } else {
+                            $displayToggle = "hide_question";
+                        }
+                        $return = '<div id="q'.$q_no.'" class="'.$displayToggle.'">';
+                        
+                        $return .= '<p class="question" > '.$q_no.'. ' . $row['question'] . '</p>';
+
+                        $choices = explode('|',$row['choices']);
+                        $ans_no = 1;
+                        foreach($choices as $option){
+                            $return .= '<input type="radio" name="q_no'.$q_no.'" value="'. $ans_no.'"/>';
+                            $return .= $option ;
+                            $ans_no+=1;
+                        }
+                        
+                        if($q_no==$total_count){
+                            $return .= '<br><input type="submit"/>';
+                        } else {
+
+                            $return .= '<br><button type="button" onclick="showNextQuestion('.$q_no.')">Next Question</button>';
+                        }
+
+                        $return .= '</div>';
+                        $q_no +=1;
+
+                        echo $return;
+                    }
+                ?>
+
+                </form>
+                </div>
         </div>
         <script>
-            let remainingTime = 10 * 60; //this is in seconds
+            let remainingTime = document.getElementById("timer").innerHTML; //this is in seconds
             renderTime(remainingTime);
             function renderTime() {
                 var minutes = Math.floor(remainingTime / 60);
@@ -34,8 +104,14 @@
                 else {
                     timer.style.color = "red";
                     timer.className = "";
-                    alert("Time's Up!");
+                    alert("Time's Up! We have submitted your answers automatically.");
+                    document.getElementById("exam_form").submit();
                 }
+            }
+            function showNextQuestion(q_no){
+                document.getElementById('q'+q_no).className = "hide_question";
+                q_no +=1;
+                document.getElementById('q'+q_no).className = "show_question";
             }
         </script>
     </body>
