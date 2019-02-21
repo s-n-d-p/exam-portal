@@ -7,6 +7,12 @@
         <title>Welcome | Exam Portal</title>
     </head>
     <body>
+        <?php
+            session_start();
+            if($_SESSION['sid']==session_id()){
+                header("location:instructionPage.html");
+            }
+        ?>
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-3"></div>
@@ -41,7 +47,7 @@
                                     onclick="location.href = './registrationPage.html'"
                                 />
                                 <br />
-                                <a href="">Forgot Password?</a>
+                                <!-- <a href="">Forgot Password?</a> -->
                             </div>
                         </form>
                     </div>

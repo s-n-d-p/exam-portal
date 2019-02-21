@@ -4,6 +4,10 @@
         <title>Logging Out | Exam Portal</title>
     </head>
     <body>
-        <h1>Thanks for taking the test!</h1>
+        <?php
+            session_start() ;
+            session_destroy();
+        ?>
+        <h1>Thank You!</h1>
     </body>
 </html>

@@ -29,3 +29,10 @@ input[type="button"] {
     }
 }
 
+.show_question{
+    display: inline;
+}
+.hide_question{
+    display: none;
+}
+

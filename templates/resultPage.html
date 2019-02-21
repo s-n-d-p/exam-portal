@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css" />
+        <link rel="stylesheet" href="../static/css/styles.css" />
+        <link rel="icon" href="../static/images/icon.jpg" />
+        <title>Welcome | Exam Portal</title>
+    </head>
+    <body>
+        <?php
+            session_start();
+            if($_SESSION['sid']!=session_id()){
+                header("location:homePage.html");
+            }
+        ?>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-9"></div>
+
+                <div class="col-lg-3 text-right">
+                    <a href="./logoutPage.html">Logout</a>
+                </div>
+            </div>
+            <div class="row">
+                <?php
+                 
+            include '../db/db_connection.php';
+                
+            // var_dump($_REQUEST);
+            $conn= OpenCon();
+                $exam_results_query = "select * from ExamResult where student_id LIKE '" . "{$_SESSION['email_id']}'";  
+                            
+                $result = mysqli_query($conn,$exam_results_query);
+
+                $return = "<table class='table'>";
+
+                $return .= "<tr> <th>Exam</th><th>Max Score</th><th>Your Score</th>";
+                foreach ($result as $row){
+
+                    $exam_type_query = "select exam_name, max_score from ExamType where exam_id = " . $row['exam_id'];  
+                    $result2 = mysqli_query($conn,$exam_type_query);
+
+                    while($row2 = mysqli_fetch_array($result2)) {
+                        $exam_row = $row2;
+                    }
+
+                    $return .= "<tr>";
+                    $return .= "<td>" . $exam_row['exam_name'] ."</td>";
+                    $return .= "<td>" . $exam_row['max_score'] ."</td>";
+                    $return .= "<td>" . $row['result'] ."</td>";
+                    $return .= "</tr>";
+
+                }
+                $return .= "</table>";
+                echo $return;
+                ?>
+            </div>
+        </div>
+    </body>
+</html>
