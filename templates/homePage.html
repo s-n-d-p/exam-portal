@@ -12,6 +12,7 @@
             if($_SESSION['sid']==session_id()){
                 header("location:instructionPage.html");
             }
+            
         ?>
         <div
             class="container-fluid centralise text-white font-weight-bold"
@@ -23,11 +24,26 @@
                     <div class="container-fluid">
                         <form action="../static/php/homePage.php" method="post">
                             <div class="row">
+                                <div>
+                                <?php
+                                    if(isset($_SESSION['registered'])){
+                                        if($_SESSION['registered']){
+                                            echo "<div class='green'>Registered successfully!</div>";
+                                        } else {
+                                            echo "<div class='red'>Could not register you! Please contact an admin.</div>";
+                                        }
+                                        unset($_SESSION['registered']);
+                                    }
+                                ?>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-3"></div>
                                 <div
                                     class="col-lg-6"
                                     style="text-align:center; vertical-align:middle;"
                                 >
+                                
                                     <legend>Sign In</legend>
                                     <div style="font-weight:lighter;">
                                         With your ExamPortal Account

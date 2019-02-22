@@ -17,17 +17,17 @@
     
     // echo $insert_query;
     
+    session_start();
     if(mysqli_query($conn,$insert_query)){
-        echo "Successfully Registered!";
-        //header("Location: ../../templates/homePage.html");
+
+        $_SESSION['registered'] = true;
     }
     else {
-        echo "Could not register you :(";
+
+        $_SESSION['registered'] = false;
     }
-    
-    
 
-
+    header("Location: ../../templates/homePage.html");
     
 
 ?>

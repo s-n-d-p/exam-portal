@@ -48,3 +48,11 @@ input[type="button"] {
 .hide_question {
     display: none;
 }
+
+.green{
+    color: green!important;
+}
+
+.red{
+    color: red!important;
+}
