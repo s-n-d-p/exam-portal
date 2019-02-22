@@ -1,73 +1,74 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Instructions | Exam Portal</title>
-        <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css" />
-        <link rel="stylesheet" href="../static/css/styles.css" />
-        <link rel="icon" href="../static/images/icon.jpg" />
-    </head>
 
-    <body style="background-color:#f7f9fc">
-        <div class="container-fluid">
-            <div class="row" style="border-bottom: solid">
-                <div class="col-lg-9"></div>
-                <div class="col-lg-3 text-right">
-                    <a href="./logoutPage.html" class="btn btn-link">Logout</a>
-                </div>
+<head>
+    <title>Instructions | Exam Portal</title>
+    <link rel="stylesheet" href="../static/css/bootstrap/bootstrap.css" />
+    <link rel="stylesheet" href="../static/css/styles.css" />
+    <link rel="icon" href="../static/images/icon.jpg" />
+</head>
+
+<body style="background-color:#f7f9fc">
+    <div class="container-fluid">
+        <div class="row" style="border-bottom: solid">
+            <div class="col-lg-9"></div>
+            <div class="col-lg-3 text-right">
+                <a href="./logoutPage.html" class="btn btn-link">Logout</a>
             </div>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-3"></div>
-                <div class="col-lg-6" style="margin-block-start: 55px; border:4px dotted;">
-                    <?php
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4" style="margin-block-start: 55px; border:4px dotted;">
+                <?php
                         session_start();
                         if($_SESSION['sid']!=session_id()){
                             header("location:homePage.html");
                         }
                     ?>
-                    <h2>Instructions</h2>
-                    <ol>
-                        <li>
-                            Check your browser options before the test to ensure
-                            that it is not set to disconnect after several
-                            minutes of inactivity.
-                        </li>
-                        <li>
-                            Do not use the "Back" button on Your browser during
-                            the test once you have begun taking the exam.
-                            Instead, use the scroll bar to move back to check
-                            earlier questions.
-                        </li>
-                        <li>
-                            Don't close the window of the test for any reason.
-                        </li>
-                        <li>
-                            Review all of your answers before submitting the
-                            exam. Make sure you have not accidentally changed
-                            your response to a question.
-                        </li>
-                        <li>
-                            When you are satisfied with the result make sure you
-                            finish by clicking the SUBMIT button at the bottom
-                            of the screen. Click the Submit Button ONLY ONCE!
-                            After you submit the test answers, you will receive
-                            a score unless you have exceeded the time limit for
-                            the quiz.
-                        </li>
-                        <li>
-                            The result will be displayed once the time runs out
-                            or you finish the test, whichever happens first.
-                        </li>
-                    </ol>
-                </div>
+                <h2>Instructions</h2>
+                <ol>
+                    <li>
+                        Check your browser options before the test to ensure
+                        that it is not set to disconnect after several
+                        minutes of inactivity.
+                    </li>
+                    <li>
+                        Do not use the "Back" button on Your browser during
+                        the test once you have begun taking the exam.
+                        Instead, use the scroll bar to move back to check
+                        earlier questions.
+                    </li>
+                    <li>
+                        Don't close the window of the test for any reason.
+                    </li>
+                    <li>
+                        Review all of your answers before submitting the
+                        exam. Make sure you have not accidentally changed
+                        your response to a question.
+                    </li>
+                    <li>
+                        When you are satisfied with the result make sure you
+                        finish by clicking the SUBMIT button at the bottom
+                        of the screen. Click the Submit Button ONLY ONCE!
+                        After you submit the test answers, you will receive
+                        a score unless you have exceeded the time limit for
+                        the quiz.
+                    </li>
+                    <li>
+                        The result will be displayed once the time runs out
+                        or you finish the test, whichever happens first.
+                    </li>
+                </ol>
             </div>
+        </div>
 
-            <div class="row">
-                <div class="col-lg-3"></div>
-                <div class="col-lg-6">
-                    <form action="examinationPage.html" method="post">
-                        <?php 
+        <div class="row">
+            <div class="col-lg-4"></div>
+            <div class="col-lg-4">
+                <form action="examinationPage.html" method="post">
+                    <?php 
                             session_start();
                             include '../db/db_connection.php';
                             
@@ -112,9 +113,10 @@
                             }
                             echo "</ul>" . $return; 
                         ?>
-                    </form>
-                </div>
+                </form>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>
