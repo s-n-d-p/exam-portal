@@ -73,10 +73,20 @@
                             include '../db/db_connection.php';
                             
                             $conn= OpenCon(); 
-                            $exam_ids_query ='select exam_id,exam_name from ExamType';
+                            $exam_ids_query ='select * from ExamType';
                             $result = mysqli_query($conn,$exam_ids_query);
 
-                            $return = "<br  ><br /><h4>Select an exam:</h4><br /><ul>";
+                            $return = "<br  ><br /><h4>Select an exam:</h4><br />";
+                            $return .= '<table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Duration (sec)</th>
+                                                    <th>Status</th>
+                                                    <th>Score</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>';
 
                             foreach($result as $row){ 
                                 $exam_results_query = "select * from ExamResult where exam_id = " .
@@ -85,33 +95,27 @@
                                                       "{$_SESSION['email_id']}'";
                                 
                                 $result_2 = mysqli_query($conn,$exam_results_query);
-                                
+                                $return .= "<tr>" .
+                                                "<td>" . "<button id='exam_link' class='btn btn-link' type='submit' name='exam_id' value='". $row['exam_id'] . "'>" . 
+                                                $row['exam_name'] . "</button></td>" . 
+                                                "<td>" . $row['time_limit_sec'] . "</td>";
                                 if(mysqli_num_rows($result_2) == 0){ 
-                                    $return .= '<li><button
-                                                    class="btn btn-link"
-                                                    type="submit"
-                                                    name="exam_id"
-                                                    value="' .$row['exam_id']. '"
-                                                >
-                                                ' . $row['exam_name'].'</button></li>'; 
+                                    $return .= '<td>Un-attempted</td>'.
+                                                '<td>N/A</td>';
                                 } 
                                 else { 
-                                    $return .= '<li><button
-                                                class="btn btn-link"
-                                                type="submit"
-                                                name="exam_id"
-                                                value="' .$row['exam_id']. '"
-                                                disabled
-                                                >
-                                                ' . $row['exam_name'].'</button>'; 
-                                
                                     while($row = mysqli_fetch_array($result_2)) { 
                                         $score = $row['result']; 
                                     } 
-                                    $return .= '<span class="text-info"> You already took this and scored '.$score .'.</span></li>'; 
+                                    $return .= '<td>Attempted</td>'.
+                                                '<td>'. $score .'</td>';
+                                    $return .= '<script>
+                                                    document.getElementById("exam_link").disabled = true;
+                                                </script>';
                                 } 
+                                $return .= "</tr>";
                             }
-                            echo "</ul>" . $return; 
+                            echo  "</tbody></table>" . $return; 
                         ?>
                 </form>
             </div>
