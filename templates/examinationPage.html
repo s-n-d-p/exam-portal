@@ -56,32 +56,92 @@
 
                     echo '<input name="exam_id" value="'.$_POST['exam_id'].'" hidden>';
                     $exam_question_query ="select question,choices,correct from
-                    QuestionBank where exam_id='{$exam_id}'"; $result =
-                    mysqli_query($conn,$exam_question_query); $total_count =
-                    mysqli_num_rows($result); $q_no = 1; foreach($result as
-                    $row){ if($q_no==1){ $displayToggle="show_question"; } else
-                    { $displayToggle = "hide_question"; } $return = '
-                    <div id="q'.$q_no.'" class="'.$displayToggle.'">
-                        '; $return .= '
-                        <p class="question">
-                            '.$q_no.'. ' . $row['question'] . '
-                        </p>
-                        '; $choices = explode('|',$row['choices']); $ans_no = 1;
-                        foreach($choices as $option){ $return .= '<input
-                            type="radio"
-                            name="q_no'.$q_no.'"
-                            value="'. $ans_no.'"
-                        />'; $return .= $option ; $ans_no+=1; }
-                        if($q_no==$total_count){ $return .= '<br /><input
-                            type="submit"
-                        />'; } else { $return .= '<br /><button
+                    QuestionBank where exam_id='{$exam_id}'";
+                    $result = mysqli_query($conn,$exam_question_query);
+                    $total_count = mysqli_num_rows($result); $q_no = 1;
+                    foreach($result as $row){
+                        if($q_no==1){
+                            $displayToggle="show_question";
+                        } else {
+                            $displayToggle = "hide_question";
+                        }
+                    
+                        $return = '
+                            <div id="q'.$q_no.'" class="'.$displayToggle.'">
+                                '; $return .= '
+                                    <p class="question">
+                                        '.$q_no.'. ' . $row['question'] . '
+                                    </p>
+                            ';
+
+                        $choices = explode('|',$row['choices']);
+                        $ans_no = 1;
+
+                        foreach($choices as $option){
+                            $return .= '<input
+                                type="radio"
+                                name="q_no'.$q_no.'"
+                                value="'. $ans_no.'"
+                                />';
+                            $return .= $option ;
+                            $ans_no+=1;
+                        }
+                        if($q_no==$total_count){
+                            //disable next
+                            $return .= '<br><button
+                                    type="button"
+                                    onclick="showPrevQuestion('.$q_no.')"
+                                    >
+                                    Previous Question
+                                    </button>';
+                            $return .= '<button
+                                    type="button"
+                                    onclick="showNextQuestion('.$q_no.')"
+                                    disabled
+                                    >
+                                    Next Question
+                                    </button>';
+                            
+
+                        } else if($q_no == 1){
+                            //disable previous
+                            $return .= '<br/><button
+                                    type="button"
+                                    onclick="showPrevQuestion('.$q_no.')"
+                                    disabled>
+                                    Previous Question
+                                    </button>';
+                            $return .= '<button
+                                    type="button"
+                                    onclick="showNextQuestion('.$q_no.')"
+                                    >
+                                    Next Question
+                                    </button>';
+                        }
+                        else {
+                            //both enabled
+                            $return .= '<br/><button
                             type="button"
-                            onclick="showNextQuestion('.$q_no.')"
-                        >
-                            Next Question</button
-                        >'; } $return .= '
-                    </div>
-                    '; $q_no +=1; echo $return; } ?>
+                            onclick="showPrevQuestion('.$q_no.')"
+                            >
+                            Previous Question
+                            </button>';
+                            $return .= '<button
+                                    type="button"
+                                    onclick="showNextQuestion('.$q_no.')"
+                                    >
+                                    Next Question
+                                    </button>';
+                        }
+                        $return .= '<input
+                                type="submit"
+                            />';
+                        $return .= '
+                            </div>
+                            ';
+                            $q_no +=1;
+                            echo $return;
+                        } ?>
                 </form>
             </div>
         </div>
@@ -110,6 +170,11 @@
             function showNextQuestion(q_no) {
                 document.getElementById("q" + q_no).className = "hide_question";
                 q_no += 1;
+                document.getElementById("q" + q_no).className = "show_question";
+            }
+            function showPrevQuestion(q_no) {
+                document.getElementById("q" + q_no).className = "hide_question";
+                q_no -= 1;
                 document.getElementById("q" + q_no).className = "show_question";
             }
         </script>
