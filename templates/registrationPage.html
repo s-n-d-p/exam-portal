@@ -17,6 +17,7 @@
                     <form
                         action="../static/php/registrationPage.php"
                         method="post"
+                        onsubmit="return validateForm()"
                     >
                         <div class="row" style="text-align:center">
                             <legend>USER REGISTRATION</legend>
@@ -54,9 +55,13 @@
                                 <option value="mca">MCA</option>
                             </select>
                             <br />
-                            <input type="checkbox" onchange="toggleSubmit(this)"
-                            id="checkbox" /> &nbsp; I agree that the furnished
-                            information is true to best of my knowledge.
+                            <input
+                                type="checkbox"
+                                onchange="toggleSubmit(this)"
+                                id="checkbox"
+                            />
+                            &nbsp; I agree that the furnished information is
+                            true to best of my knowledge.
                             <input
                                 type="submit"
                                 id="submit"
@@ -83,6 +88,17 @@
                 if (e.checked)
                     document.getElementById("submit").disabled = false;
                 else document.getElementById("submit").disabled = true;
+            };
+            const validateForm = () => {
+                var re_email = document.getElementById("re_email");
+                var re_password = document.getElementById("re_password");
+                x = re_email.nodeValue != re_email.previousSibling.nodeValue;
+                y =
+                    re_password.nodeValue !=
+                    re_password.previousSibling.nodeValue;
+                if (x) re_email.style.border = "2px solid red";
+                if (y) re_password.style.border = "2px solid red";
+                if (x || y) return false;
             };
             document.getElementById("submit").disabled = true;
             document.getElementById("checkbox").checked = false;
