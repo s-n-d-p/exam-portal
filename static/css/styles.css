@@ -56,3 +56,7 @@ input[type="button"] {
 .red {
     color: red !important;
 }
+
+.dark{
+    color: rebeccapurple;
+}
