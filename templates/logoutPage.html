@@ -11,9 +11,12 @@
             session_start() ;
             session_destroy();
         ?>
-        <div class="container centralise">
+        <div
+            class="container"
+            style="display:flex; height: 70%; justify-content: center; align-items:center"
+        >
             <div class="row">
-                <div class="col-lg-6">
+                <div class="col">
                     <img
                         class="img-responsive"
                         src="../static/images/thankYou.png"
@@ -22,5 +25,27 @@
                 </div>
             </div>
         </div>
+        <div
+            class="container"
+            style="display:flex; height: 30%; justify-content: center; align-items:center"
+        >
+            <div class="row">
+                <div class="col text-info">
+                    Redirecting to Homepage in
+                    <span id="timer">5</span> seconds..
+                </div>
+            </div>
+        </div>
+        <script>
+            const decrementTime = () => {
+                document.getElementById("timer").innerText =
+                    parseInt(document.getElementById("timer").innerText) - 1;
+                setTimeout(decrementTime, 1000);
+            };
+            setTimeout(decrementTime, 1000);
+            setTimeout(() => {
+                window.location.replace("./homePage.html");
+            }, 5000);
+        </script>
     </body>
 </html>
