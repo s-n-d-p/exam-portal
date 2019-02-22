@@ -1,7 +1,5 @@
 <?php
     include '../../db/db_connection.php';
-    //var_dump($_REQUEST);
-    //echo "Hello\n";
     $conn= OpenCon();
 
     $first_name = mysqli_real_escape_string($conn,$_POST['first_name']);
@@ -17,7 +15,7 @@
     
     $insert_query = "insert into Student(first_name, last_name, email_id, password, dob, course, cgpa) values('{$first_name}','${last_name}', '${email_id}', '${hashed_password}','${parsed_dob}','${course}', '${cgpa}')";
     
-    echo $insert_query;
+    // echo $insert_query;
     
     if(mysqli_query($conn,$insert_query)){
         echo "Successfully Registered!";

@@ -61,6 +61,4 @@
     else {
         echo "Could not save results you :( <a href='../../templates/resultPage.html'>Go to results page</a>";
     }
-
-
 ?>
