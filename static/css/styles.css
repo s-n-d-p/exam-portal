@@ -1,6 +1,7 @@
 html,
 body {
     height: 100%;
+    overflow-x: hidden;
 }
 
 .centralise {
@@ -28,7 +29,7 @@ input[type="button"] {
 }
 
 .blinking {
-    animation: blinkingText 1.5s infinite;
+    animation: blinkingText 2s infinite;
 }
 @keyframes blinkingText {
     0% {
@@ -57,6 +58,24 @@ input[type="button"] {
     color: red !important;
 }
 
-.dark{
+.dark {
     color: rebeccapurple;
+}
+
+.list-group,
+.list-group-item {
+    border: none;
+}
+
+.dot {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 98%;
 }
