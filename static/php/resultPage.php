@@ -27,7 +27,7 @@
                     
                     include '../../db/db_connection.php';
                         
-                    // var_dump($_REQUEST);
+                    //var_dump($_REQUEST);
                     $conn= OpenCon();
 
                     $exam_id = mysqli_real_escape_string($conn,$_POST['exam_id']);
@@ -49,6 +49,7 @@
                                         <th>Attempted?</th>
                                         <th>Your Answer</th>
                                         <th>Correct Answer</th>
+                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>';
@@ -59,15 +60,17 @@
                                         "</td>"
                                     ;
                         $choices = explode('|',$row['choices']);
+
+                        $tick = false;
                         if(isset($_POST['q_no'.$q_no])){
 
                             $return .= "<td> Yes </td>";
                             $attempted +=1;
                             $user_answer = mysqli_real_escape_string($conn,$_POST['q_no'.$q_no]);
 
-
                             if($user_answer == $row['correct']){
                                 $correct_answers+=1;
+                                $tick = true;
                             }
 
                             $return .=  "<td>" .
@@ -84,6 +87,15 @@
                 // Your answer   
                         $return .=  "<td>" .
                                         $choices[$row['correct']-1].
+                                    "</td>";
+
+                        if($tick){
+                            $pic = "✅";
+                        } else {
+                            $pic = "❌";
+                        }
+                        $return .= "<td>".
+                                        $pic.
                                     "</td>";
                         $return .= "</tr>";
                         $q_no+=1;
@@ -104,9 +116,9 @@
 
                     
                     $insert_query = "insert into ExamResult(id, exam_id, student_id, result) ".
-                                    "values('{$_SESSION['email_id']}','${exam_id}', '{$_SESSION['email_id']}', '${correct_answers}')";
+                                    "values('{$_SESSION['email_id']}".$exam_id."','${exam_id}', '{$_SESSION['email_id']}', '${correct_answers}')";
                     
-                    
+                    echo $insert_query;
                     if(mysqli_query($conn,$insert_query)){
                         echo "<br><p class='green'>Successfully saved your results! </p><a href='../../templates/resultPage.html'>Go to results page</a>";
                     }
