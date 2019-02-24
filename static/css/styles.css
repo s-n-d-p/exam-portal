@@ -12,13 +12,19 @@ body {
 }
 
 input,
-select {
+select,
+:not(input[type="radio"]) {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
     box-sizing: border-box;
     border-radius: 4px;
 }
+
+input[type="radio"]{
+    margin: 8px;
+}
+
 input[type="checkbox"] {
     width: 20px;
 }
@@ -44,10 +50,14 @@ input[type="button"] {
 }
 
 .show_question {
-    display: inline;
+    display: inherit;
 }
 .hide_question {
     display: none;
+}
+
+.radioLeft{
+    text-align:left;
 }
 
 .green {
