@@ -178,6 +178,7 @@
                                 <button
                                     class="btn text-white"
                                     type="button"
+                                    onclick="saveProgress()"
                                     id="save"
                                     style="background-color:green;"
                                 >
@@ -325,7 +326,9 @@
         </form>
         <script>
             var blinkOn = 0;
+            var time_left;
             function remainingTime(time_limit) {
+                time_left = time_limit;
                 if (time_limit < 0) return 0;
                 if (!blinkOn && time_limit < 300) {
                     blinkOn = 1;
@@ -353,7 +356,7 @@
             }
 
             function getTime(){
-                //TODO @sandeep
+                return time_left;
             }
 
             setTime();
@@ -450,7 +453,7 @@
                 console.log(stringProgress);
                 document.getElementById("progessInput").value = stringProgress;
 
-                document.getElementById("time_left").value = 100;
+                document.getElementById("time_left").value = getTime();
                 document.getElementById('progressForm').submit();
 
             }
