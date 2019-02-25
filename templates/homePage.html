@@ -23,16 +23,28 @@
                 <div class="col-lg-6">
                     <div class="container-fluid">
                         <form action="../static/php/homePage.php" method="post">
-                            <div class="row">
-                                <div>
+                            <div class="row" style="margin-bottom: 50px">
+                                <div class="col">
                                 <?php
                                     if(isset($_SESSION['registered'])){
                                         if($_SESSION['registered']){
-                                            echo "<div class='green'>Registered successfully!</div>";
+                                            echo "<div class='green text-center'>Registered successfully!</div>";
                                         } else {
-                                            echo "<div class='red'>Could not register you! Please contact an admin.</div>";
+                                            echo "<div class='red text-center'>Could not register you! Please contact an admin.</div>";
                                         }
                                         unset($_SESSION['registered']);
+                                    }
+                                    if(isset($_SESSION['w_email'])){
+                                        if($_SESSION['w_email']){
+                                            echo "<div class='red text-center'>Unregistered email-id, Please signup!</div>";
+                                        }
+                                        unset($_SESSION['w_email']);
+                                    }
+                                    if(isset($_SESSION['w_password'])){
+                                        if($_SESSION['w_password']){
+                                            echo "<div class='red text-center'>Wrong password, try again!</div>";
+                                        }
+                                        unset($_SESSION['w_password']);
                                     }
                                 ?>
                                 </div>

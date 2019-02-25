@@ -11,13 +11,15 @@
     $result = mysqli_query($conn, $select_user_query);
     
     if($result){
+        session_start();
+        $_SESSION["w_password"] = false;
+        $_SESSION["w_email"] = false;
         $count = mysqli_num_rows($result);
     
         if($count == 1){
             $row = mysqli_fetch_array($result);
 
             if(password_verify($password,$row['password'])){   
-                session_start();
                 $_SESSION['sid'] = session_id();
                 $_SESSION['email_id'] = $email_id;
                 $_SESSION['first_name'] = $row['first_name'];
@@ -27,11 +29,14 @@
                 header("Location:../../templates/instructionPage.html");
 
             } else {
-                echo "Wrong password! Please try again.";
+                $_SESSION["w_password"] = true;
+                //  "Wrong password! Please try again.";
             }
         } else {
-            echo "Invalid email id. Please sign up with " . $email_id ;
+            $_SESSION["w_email"] = true;
+            // echo "Invalid email id. Please sign up with " . $email_id ;
         }
+        header('Location: ../../templates/homePage.html');
     }
     else{
         echo "Sql Error <br>";
