@@ -115,7 +115,7 @@
                     
 
                     
-                    $insert_query = "insert into ExamResult(id, exam_id, student_id, result) ".
+                    $insert_query = "REPLACE into ExamResult(id, exam_id, student_id, result) ".
                                     "values('{$_SESSION['email_id']}".$exam_id."','${exam_id}', '{$_SESSION['email_id']}', '${correct_answers}')";
                     
                     echo $insert_query;

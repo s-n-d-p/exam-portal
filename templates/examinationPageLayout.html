@@ -9,8 +9,10 @@
     <body>
         <?php     
             include '../db/db_connection.php';
+
+            var_dump($_REQUEST);
             session_start();
-            if($_SESSION['sid']!=session_id()){
+            if($_SESSION['sid']!=session_id() || !isset($_POST['exam_id'])){
                 header("location:homePage.html");
             }
         ?>
@@ -71,6 +73,10 @@
                     <input name="exam_id" value="'.$_POST['exam_id'].'" hidden>';
 
                     // var_dump($_REQUEST);
+                    $insert_query = "REPLACE into ExamResult(id, exam_id, student_id, result) ".
+                                    "values('{$_SESSION['email_id']}".$exam_id."','${exam_id}', '{$_SESSION['email_id']}', '0')";
+     
+                    mysqli_query($conn,$insert_query);
 
                     $exam_question_query ="select question,choices,correct from
                     QuestionBank where exam_id='{$exam_id}'";
