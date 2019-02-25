@@ -9,11 +9,22 @@
     <body>
         <?php     
             include '../db/db_connection.php';
-
+            $conn= OpenCon();
+            
             // var_dump($_REQUEST);
+
             session_start();
             if($_SESSION['sid']!=session_id() || !isset($_POST['exam_id'])){
                 header("location:homePage.html");
+            }
+            $exam_results_query = "select result from ExamResult where exam_id = " .
+                                                        $_POST['exam_id'] .
+                                                      " AND student_id LIKE '" . 
+                                                      "{$_SESSION['email_id']}'";
+                                
+            $result = mysqli_query($conn,$exam_results_query);
+            if(mysqli_num_rows($result) > 0){
+                header("location:instructionPage.html");
             }
         ?>
         <div class="container-fluid" style="height: 100%; width:98%;">
