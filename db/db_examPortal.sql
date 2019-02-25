@@ -41,6 +41,7 @@ CREATE TABLE `ExamResult` (
 
 LOCK TABLES `ExamResult` WRITE;
 /*!40000 ALTER TABLE `ExamResult` DISABLE KEYS */;
+INSERT INTO `ExamResult` VALUES ('gazala_b150028cs@nitc.ac.in1',1,'gazala_b150028cs@nitc.ac.in',3),('gazala_b150028cs@nitc.ac.in2',2,'gazala_b150028cs@nitc.ac.in',2);
 /*!40000 ALTER TABLE `ExamResult` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +67,7 @@ CREATE TABLE `ExamType` (
 
 LOCK TABLES `ExamType` WRITE;
 /*!40000 ALTER TABLE `ExamType` DISABLE KEYS */;
-INSERT INTO `ExamType` VALUES (1,'LAMP Stack',30,5);
+INSERT INTO `ExamType` VALUES (1,'LAMP Stack',30000,5),(2,'Biology Quiz - Cell Structure and Function',1000,10);
 /*!40000 ALTER TABLE `ExamType` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +95,7 @@ CREATE TABLE `QuestionBank` (
 
 LOCK TABLES `QuestionBank` WRITE;
 /*!40000 ALTER TABLE `QuestionBank` DISABLE KEYS */;
-INSERT INTO `QuestionBank` VALUES (1,'MYSQL comes with a DATE data type. What\'s the format that DATE accepts?','DD-MM-YYYY|MM-DD-YYYY|YYYY-MM-DD|DD/MM/YYYY',3),(1,'What is the default port for HTTP and HTTPS?','22,23|80,443|433,80|443,80|80,22',2),(1,'What\'s the main difference between mysql_fetch_array and mysql_fetch_object?','Mysql_fetch_array returns an arrya, whereas mysql_fetch_object returns an object.|Mysql_fetch_array will fetch all the matching records, whereas mysql_fetch_object will only fetch the first record that matches the query.',2),(1,'What\'s the output of this PHP code?\r\n$a =  012;\r\necho $a / 4;','3|4|2.5|Error',3),(1,'Which of these is incorrect?','A Session is destroyed when the window is closed.| A Session is destroyed based on the session timeout set in your Apache Server.| A Session can be destroyed using session_destroy()',1);
+INSERT INTO `QuestionBank` VALUES (1,'MYSQL comes with a DATE data type. What\'s the format that DATE accepts?','DD-MM-YYYY|MM-DD-YYYY|YYYY-MM-DD|DD/MM/YYYY',3),(2,'The plant cell structure where photosynthesis takes place is called...','chloroplast|chlorophyll|vacuole\r\n',1),(2,'What cell feature contains digestive enzymes which breaks things down?','lysosomes|ribosomes|vacuoles\r\n',1),(2,'What cell feature is responsible for powering the cell?','endoplasmic reticulum|golgi apparatus|mitochondria\r\n',3),(2,'What cell feature is responsible for storing water?','mitochondria|lysosome|vacuole\r\n',3),(2,'What is one major feature that plant cells have that animal cells do not?','lysosome|cell wall|cell membrane\r\n',2),(1,'What is the default port for HTTP and HTTPS?','22,23|80,443|433,80|443,80|80,22',2),(2,'What is the name of the jelly-like substance that is inside the cell?','cytoplasm|ectoplasm|cytokinesis\r\n',1),(1,'What\'s the main difference between mysql_fetch_array and mysql_fetch_object?','Mysql_fetch_array returns an arrya, whereas mysql_fetch_object returns an object.|Mysql_fetch_array will fetch all the matching records, whereas mysql_fetch_object will only fetch the first record that matches the query.',2),(1,'What\'s the output of this PHP code?\r\n$a =  012;\r\necho $a / 4;','3|4|2.5|Error',3),(2,'Where in the cell does DNA replication take place?','ribosomes|nucleus|nucleolus\r\n',2),(2,'Which cell feature is responsible for making proteins?','lysosomes|ribosomes|mitochondria\r\n',2),(2,'Which cell feature processes proteins?','endoplasmic reticulum|chloroplasts|golgi apparatus\r\n',3),(2,'Which cell feature transports ribosomes? ','endoplasmic reticulum|golgi apparatus|mitochondria\r\n',1),(1,'Which of these is incorrect?','A Session is destroyed when the window is closed.| A Session is destroyed based on the session timeout set in your Apache Server.| A Session can be destroyed using session_destroy()',1);
 /*!40000 ALTER TABLE `QuestionBank` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,7 +124,7 @@ CREATE TABLE `Student` (
 
 LOCK TABLES `Student` WRITE;
 /*!40000 ALTER TABLE `Student` DISABLE KEYS */;
-INSERT INTO `Student` VALUES ('1@1','$2y$10$oraI4vK1HygovsgQb2blJeNYr.otyEkUF1BCP7LUSUnAo.BapCpRS','a','b','btech',9.20,'1997-06-05'),('g@gmail.com','$2y$10$bCvoxVogmk7RB10ly9/h1e8FI7aCVbEOLolVigdf/SNCcOLRURYA2','testname','maef','NITC',10.00,'2019-02-03'),('gaz@gmail.com','$2y$10$1533fLxH0TpNZPy02noHvOttVJaE7Xa9t5S5ieaEMKdprfwfn8qbm','Gazala','Muhamed','mtech',10.00,'1997-06-05');
+INSERT INTO `Student` VALUES ('1@1','$2y$10$oraI4vK1HygovsgQb2blJeNYr.otyEkUF1BCP7LUSUnAo.BapCpRS','a','b','btech',9.20,'1997-06-05'),('34567@1','$2y$10$BT1J9AfuOACSK05i8Sz/A.8rfesUVaksoj4Y53XAjq/aRHeHAzYyi','1234567','2345678','btech',5.90,'1997-06-05'),('456789@1','$2y$10$vy41oDxzcsg.catAyvNSJeZzNiVlGDei41Cmi3kOw79czXArQp6yK','dfv','qdf','btech',1.00,'1997-06-05'),('g@gmail.com','$2y$10$bCvoxVogmk7RB10ly9/h1e8FI7aCVbEOLolVigdf/SNCcOLRURYA2','testname','maef','NITC',10.00,'2019-02-03'),('gaz@gmail.com','$2y$10$1533fLxH0TpNZPy02noHvOttVJaE7Xa9t5S5ieaEMKdprfwfn8qbm','Gazala','Muhamed','mtech',10.00,'1997-06-05'),('gazala_b150028cs@nitc.ac.in','$2y$10$mslglV64gu5u..eORAjbye4JIph/FGYKKbrNlRzbNVUzglcVO9Cxe','Gazala','Muhamed','btech',10.00,'1997-06-05');
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -136,4 +137,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-21 22:52:06
+-- Dump completed on 2019-02-25 12:41:35
