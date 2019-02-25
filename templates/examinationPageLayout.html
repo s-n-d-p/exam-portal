@@ -178,15 +178,6 @@
                                 <button
                                     class="btn text-white"
                                     type="button"
-                                    onclick="saveProgress()"
-                                    id="save"
-                                    style="background-color:green;"
-                                >
-                                    Save
-                                </button>
-                                <button
-                                    class="btn text-white"
-                                    type="button"
                                     id="review"
                                     style="background-color:orange;"
                                 >
@@ -250,6 +241,16 @@
                                     style="box-sizing:border-box; width:100%; margin-top: 20px"
                                 >
                                     Finish
+                                </button>
+
+                                <button
+                                    class="btn text-white"
+                                    type="button"
+                                    onclick="saveProgress()"
+                                    id="save"
+                                    style="box-sizing:border-box; width:100%; margin-top: 20px; background-color:green;"
+                                >
+                                    Save
                                 </button>
                             </div>
                         </div>
@@ -463,9 +464,7 @@
 
             }
             // TODO on tab close, or back button, or refresh
-            //use cookies/localStorage
-
-            // window.onunload = saveProgress;
+            window.onunload = saveProgress;
         </script>
     </body>
 </html>
