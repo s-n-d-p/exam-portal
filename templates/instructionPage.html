@@ -95,28 +95,34 @@
                                                       "{$_SESSION['email_id']}'";
                                 
                                 $result_2 = mysqli_query($conn,$exam_results_query);
-                                $return .= "<tr>" .
-                                                "<td>" . "<button id='exam_link' class='btn btn-link' type='submit' name='exam_id' value='". $row['exam_id'] . "'>" . 
-                                                $row['exam_name'] . "</button></td>" . 
-                                                "<td>" . $row['time_limit_sec'] . "</td>";
-                                if(mysqli_num_rows($result_2) == 0){ 
-                                    $return .= '<td>Un-attempted</td>'.
-                                                '<td>N/A</td>';
+                                if(mysqli_num_rows($result_2) == 0){
+
+                                    $return .= "<tr>" .
+                                                    "<td><button class='btn btn-link' type='submit' name='exam_id' value='" . $row['exam_id'] . "'>" . 
+                                                    $row['exam_name'] . "</button>
+                                                    </td>" . 
+                                                    "<td>" . $row['time_limit_sec'] . "</td>";
+                                        $return .=  '<td>Un-attempted</td>'.
+                                                     '<td>N/A</td>';
                                 } 
                                 else { 
-                                    while($row = mysqli_fetch_array($result_2)) { 
-                                        $score = $row['result']; 
-                                    } 
-                                    $return .= '<td>Attempted</td>'.
-                                                '<td>'. $score .'</td>';
-                                    $return .= '<script>
-                                                    document.getElementById("exam_link").disabled = true;
-                                                </script>';
+
+                                    $return .= "<tr>" .
+                                                    "<td><button disabled class='btn btn-link' type='submit' name='exam_id' value='". $row['exam_id'] . "'>" . 
+                                                    $row['exam_name'] . "</button></td>" . 
+                                                    "<td>" . $row['time_limit_sec'] . "</td>";
+                                                    while($row = mysqli_fetch_array($result_2)) { 
+                                                        $score = $row['result']; 
+                                                    } 
+                                        $return .=  '<td>Attempted</td>'.
+                                                    '<td>'. $score .'</td>';
                                 } 
-                                $return .= "</tr>";
+                                    $return .= "</tr>";
                             }
                             echo $return .  "</tbody></table>" ; 
                         ?>
+
+                        
                 </form>
             </div>
         </div>

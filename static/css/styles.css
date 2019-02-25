@@ -11,9 +11,8 @@ body {
     align-items: center;
 }
 
-input,
-select,
-:not(input[type="radio"]) {
+input:not([type="radio"]),
+select{
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
