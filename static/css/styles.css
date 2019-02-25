@@ -12,7 +12,8 @@ body {
 }
 
 input,
-select {
+select,
+:not(input[type="radio"]) {
     width: 100%;
     padding: 12px 20px;
     margin: 8px 0;
