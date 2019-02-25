@@ -34,6 +34,18 @@
                                         }
                                         unset($_SESSION['registered']);
                                     }
+                                    if(isset($_SESSION['w_email'])){
+                                        if($_SESSION['w_email']){
+                                            echo "<div class='red text-center'>Unregistered email-id, Please signup!</div>";
+                                        }
+                                        unset($_SESSION['w_email']);
+                                    }
+                                    if(isset($_SESSION['w_password'])){
+                                        if($_SESSION['w_password']){
+                                            echo "<div class='red text-center'>Wrong password, try again!</div>";
+                                        }
+                                        unset($_SESSION['w_password']);
+                                    }
                                 ?>
                                 </div>
                             </div>
