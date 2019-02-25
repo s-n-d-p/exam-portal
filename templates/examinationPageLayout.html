@@ -94,7 +94,7 @@
 
                     $exam_question_query ="select question,choices,correct from
                     QuestionBank where exam_id='{$exam_id}'";
-                    echo $get_progress;
+                    // echo $get_progress;
                     $result = mysqli_query($conn,$exam_question_query);
                     $total_count = mysqli_num_rows($result);
 
@@ -107,7 +107,7 @@
                         $row_prev = $result_prev->fetch_assoc();
                         $progressString = $row_prev['progress'];
                     }
-                    echo $progressString;
+                    // echo $progressString;
                     $q_no = 0;
                     foreach($result as $row){
                         $q_no += 1;
@@ -316,7 +316,7 @@
         </div>
         <form id="progressForm" action="instructionPage.html" method="POST">
             <input type="text" id="progessInput" name="savedProgress" value="start" hidden>
-            <input type="text" id="time_left" name="time_left" value="1000" hidden>
+            <input type="text" id="time_left" name="time_left" value="123" hidden>
             <?php     
                 $conn= OpenCon();
                 $exam_id = mysqli_real_escape_string($conn,$_POST['exam_id']);
@@ -328,7 +328,9 @@
             var blinkOn = 0;
             var time_left;
             function remainingTime(time_limit) {
+                time_limit = parseInt(time_limit)
                 time_left = time_limit;
+                localStorage.setItem("counter", time_limit);
                 if (time_limit < 0) return 0;
                 if (!blinkOn && time_limit < 300) {
                     blinkOn = 1;
@@ -361,6 +363,9 @@
 
             setTime();
             //remainingTime(600); //call this with the exam's time limit
+            if(localStorage.getItem("counter")){
+                remainingTime(localStorage.getItem("counter"));
+            } else {
             <?php
              $conn= OpenCon();
              $exam_id = mysqli_real_escape_string($conn,$_POST['exam_id']);
@@ -387,7 +392,7 @@
 
              
             ?>
-
+            }
              //onlick listener on prev, get byclassname show, get the id, then + 1 etc logic here
 
              document.getElementById("next").addEventListener("click", showNextQuestion); 
@@ -458,7 +463,8 @@
 
             }
             // TODO on tab close, or back button, or refresh
-            // saveProgress();
+            //use cookies/localStorage
+
             // window.onunload = saveProgress;
         </script>
     </body>
