@@ -14,11 +14,17 @@
             }
         ?>
         <div class="container-fluid">
-            <div class="row">
+            <!-- <div class="row">
                 <div class="col-lg-9"></div>
 
                 <div class="col-lg-3 text-right">
                     <a href="./logoutPage.html">Logout</a>
+                </div>
+            </div> -->
+            <div class="row" style="border-bottom: solid; background-color: #064cc2">
+                <div class="col-lg-9"></div>
+                <div class="col-lg-3 text-right">
+                    <a href="./logoutPage.html" class="btn btn-link text-white">Logout</a>
                 </div>
             </div>
             <div class="row">
@@ -32,7 +38,7 @@
                             
                 $result = mysqli_query($conn,$exam_results_query);
 
-                $return = "<table class='table'>";
+                $return = "<table class='table text-center'>";
 
                 $return .= "<tr> <th>Exam</th><th>Max Score</th><th>Your Score</th>";
                 foreach ($result as $row){

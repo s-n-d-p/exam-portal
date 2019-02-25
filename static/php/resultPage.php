@@ -10,12 +10,18 @@
     <body>
         
             <div class="container-fluid text-white font-weight-bold">
-                    <div class="row" style="border-bottom: solid">
+                    <!-- <div class="row" style="border-bottom: solid">
                             <div class="col-lg-9"></div>
                             <div class="col-lg-3 text-right">
                                 <a href="./logoutPage.html" class="btn btn-link">Logout</a>
                             </div>
+                        </div> -->
+                    <div class="row" style="border-bottom: solid; background-color: #064cc2">
+                        <div class="col-lg-9"></div>
+                        <div class="col-lg-3 text-right">
+                            <a href="../../templates/logoutPage.html" class="btn btn-link text-white">Logout</a>
                         </div>
+                    </div>
                 <div class="row">
                     
                 <div class="col">
@@ -107,7 +113,7 @@
                     </div></div>
                         " ; 
 
-                    echo "<div class='row'>
+                    echo "<div class='row' style='margin-top:60px'>
                             <div class='col'>
                             <p class='dark'>
                             Attempted: " . $attempted . "</p>";
