@@ -16,6 +16,32 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `ExamAttempt`
+--
+
+DROP TABLE IF EXISTS `ExamAttempt`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ExamAttempt` (
+  `exam_id` varchar(200) NOT NULL,
+  `student_id` varchar(200) NOT NULL,
+  `id` varchar(400) NOT NULL,
+  `progress` varchar(200) NOT NULL,
+  `time_left` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ExamAttempt`
+--
+
+LOCK TABLES `ExamAttempt` WRITE;
+/*!40000 ALTER TABLE `ExamAttempt` DISABLE KEYS */;
+/*!40000 ALTER TABLE `ExamAttempt` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `ExamResult`
 --
 
@@ -41,7 +67,7 @@ CREATE TABLE `ExamResult` (
 
 LOCK TABLES `ExamResult` WRITE;
 /*!40000 ALTER TABLE `ExamResult` DISABLE KEYS */;
-INSERT INTO `ExamResult` VALUES ('gazala_b150028cs@nitc.ac.in1',1,'gazala_b150028cs@nitc.ac.in',3),('gazala_b150028cs@nitc.ac.in2',2,'gazala_b150028cs@nitc.ac.in',2);
+INSERT INTO `ExamResult` VALUES ('sandy@jane.com2',2,'sandy@jane.com',1);
 /*!40000 ALTER TABLE `ExamResult` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +150,7 @@ CREATE TABLE `Student` (
 
 LOCK TABLES `Student` WRITE;
 /*!40000 ALTER TABLE `Student` DISABLE KEYS */;
-INSERT INTO `Student` VALUES ('1@1','$2y$10$oraI4vK1HygovsgQb2blJeNYr.otyEkUF1BCP7LUSUnAo.BapCpRS','a','b','btech',9.20,'1997-06-05'),('34567@1','$2y$10$BT1J9AfuOACSK05i8Sz/A.8rfesUVaksoj4Y53XAjq/aRHeHAzYyi','1234567','2345678','btech',5.90,'1997-06-05'),('456789@1','$2y$10$vy41oDxzcsg.catAyvNSJeZzNiVlGDei41Cmi3kOw79czXArQp6yK','dfv','qdf','btech',1.00,'1997-06-05'),('g@gmail.com','$2y$10$bCvoxVogmk7RB10ly9/h1e8FI7aCVbEOLolVigdf/SNCcOLRURYA2','testname','maef','NITC',10.00,'2019-02-03'),('gaz@gmail.com','$2y$10$1533fLxH0TpNZPy02noHvOttVJaE7Xa9t5S5ieaEMKdprfwfn8qbm','Gazala','Muhamed','mtech',10.00,'1997-06-05'),('gazala_b150028cs@nitc.ac.in','$2y$10$mslglV64gu5u..eORAjbye4JIph/FGYKKbrNlRzbNVUzglcVO9Cxe','Gazala','Muhamed','btech',10.00,'1997-06-05');
+INSERT INTO `Student` VALUES ('gazala_b150028cs@nitc.ac.in','$2y$10$mslglV64gu5u..eORAjbye4JIph/FGYKKbrNlRzbNVUzglcVO9Cxe','Gazala','Muhamed','btech',10.00,'1997-06-05'),('sandy@jane.com','$2y$10$Fp/3uDjCikuplVFzPBOGz.I9aWddckuTUXQGmzGTEo2Rkr5MPX3Du','Jane','Doe','MCA',0.90,'1997-08-15');
 /*!40000 ALTER TABLE `Student` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -137,4 +163,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-02-25 12:41:35
+-- Dump completed on 2019-02-25 18:10:56

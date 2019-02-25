@@ -121,6 +121,10 @@
                     echo $insert_query;
                     if(mysqli_query($conn,$insert_query)){
                         echo "<br><p class='green'>Successfully saved your results! </p><a href='../../templates/resultPage.html'>Go to results page</a>";
+                        $delete_attempt = "delete from ExamAttempt where exam_id = " .$exam_id. " AND 
+                                                    student_id LIKE '" . "{$_SESSION['email_id']}'";
+                        mysqli_query($conn,$delete_attempt);
+
                     }
                     else {
                         echo "<br><p class='red'>Could not save your results :( </p><a href='../../templates/resultPage.html'>Go to results page</a>";

@@ -22,10 +22,29 @@
             <div class="col-lg-4"></div>
             <div class="col-lg-4" style="margin-block-start: 55px; border:4px dotted;">
                 <?php
-                        session_start();
-                        if($_SESSION['sid']!=session_id()){
-                            header("location:homePage.html");
+                    include '../db/db_connection.php';
+                    //var_dump($_POST);
+                    session_start();
+                    if($_SESSION['sid']!=session_id()){
+                        header("location:homePage.html");
+                    }
+
+                    $conn= OpenCon();
+
+                    if(isset($_POST['savedProgress'])){
+                        //send query to ExamAttempt
+                        $exam_id = mysqli_real_escape_string($conn,$_POST['exam_id']);
+                        $insert_query = "REPLACE into ExamAttempt(id, exam_id, student_id, progress, time_left) ".
+                        "values('{$_SESSION['email_id']}".$exam_id."','${exam_id}', '{$_SESSION['email_id']}', '{$_POST['savedProgress']}','{$_POST['time_left']}')";
+                        // echo $insert_query;
+                        if(mysqli_query($conn,$insert_query)){
+                            echo "<br><p class='green'>Successfully saved your progress! </p>";
                         }
+                        else {
+                            echo "<br><p class='red'>Could not save your progress :( </p>";
+                        }
+                        
+                    }
                     ?>
                 <h2>Instructions</h2>
                 <ol>
@@ -70,9 +89,9 @@
                 <form action="examinationPageLayout.html" method="post">
                     <?php 
                             session_start();
-                            include '../db/db_connection.php';
                             
                             $conn= OpenCon(); 
+
                             $exam_ids_query ='select * from ExamType';
                             $result = mysqli_query($conn,$exam_ids_query);
 
@@ -89,31 +108,45 @@
                                             <tbody>';
 
                             foreach($result as $row){ 
+                                $exam_id = $row['exam_id'];
+                            
+                                $get_remaining_time = "select time_left from ExamAttempt where exam_id='{$exam_id}' AND student_id LIKE '" . 
+                                                      "{$_SESSION['email_id']}'"; 
+                                // echo $get_remaining_time;
+                                $result_prev = mysqli_query($conn,$get_remaining_time);
+                                         
+                                if(mysqli_num_rows($result_prev) == 0){
+                                    $time = $row['time_limit_sec'];
+                                    $attemped = 'Unattempted';
+                                } else {
+                                    $row_prev = $result_prev->fetch_assoc();
+                                    $time = $row_prev['time_left'];
+                                    $attemped = 'Incomplete';
+                                }
+
+
                                 $exam_results_query = "select * from ExamResult where exam_id = " .
                                                        $row['exam_id'] .
                                                       " AND student_id LIKE '" . 
                                                       "{$_SESSION['email_id']}'";
-                                
                                 $result_2 = mysqli_query($conn,$exam_results_query);
-                                if(mysqli_num_rows($result_2) == 0){
 
+                                if(mysqli_num_rows($result_2) == 0){
                                     $return .= "<tr>" .
                                                     "<td><button class='btn btn-link' type='submit' name='exam_id' value='" . $row['exam_id'] . "'>" . 
                                                     $row['exam_name'] . "</button>
                                                     </td>" . 
-                                                    "<td>" . $row['time_limit_sec'] . "</td>";
-                                        $return .=  '<td>Un-attempted</td>'.
+                                                    "<td>" . $time . "</td>";
+                                        $return .=  '<td>'. $attemped .'</td>'.
                                                      '<td>N/A</td>';
-                                } 
-                                else { 
-
+                                } else {
                                     $return .= "<tr>" .
                                                     "<td><button disabled class='btn btn-link' type='submit' name='exam_id' value='". $row['exam_id'] . "'>" . 
                                                     $row['exam_name'] . "</button></td>" . 
                                                     "<td>" . $row['time_limit_sec'] . "</td>";
-                                                    while($row = mysqli_fetch_array($result_2)) { 
-                                                        $score = $row['result']; 
-                                                    } 
+                                                    $row = $result_2->fetch_assoc(); 
+                                                    $score = $row['result']; 
+                                                    
                                         $return .=  '<td>Attempted</td>'.
                                                     '<td>'. $score .'</td>';
                                 } 

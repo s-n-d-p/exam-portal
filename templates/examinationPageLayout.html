@@ -27,6 +27,10 @@
                 header("location:instructionPage.html");
             }
         ?>
+        <?php
+            //restore
+        ?>
+
         <div class="container-fluid" style="height: 100%; width:98%;">
             <div
                 class="row"
@@ -64,9 +68,7 @@
                     </span>
                 </div>
             </div>
-            <div class="row">
-                
-                
+            <div class="row">                
                 <div
                     class="col-lg-9"
                     style="border: 1px solid black; margin-top: 60px"
@@ -84,16 +86,28 @@
                     <input name="exam_id" value="'.$_POST['exam_id'].'" hidden>';
 
                     // var_dump($_REQUEST);
-                    $insert_query = "REPLACE into ExamResult(id, exam_id, student_id, result) ".
-                                    "values('{$_SESSION['email_id']}".$exam_id."','${exam_id}', '{$_SESSION['email_id']}', '0')";
-     
-                    mysqli_query($conn,$insert_query);
+                   
+                    $get_progress = "select progress from ExamAttempt where exam_id='{$exam_id}' AND student_id LIKE '" . 
+                                                      "{$_SESSION['email_id']}'"; 
+                    $result_prev = mysqli_query($conn,$get_progress);
+                    
 
                     $exam_question_query ="select question,choices,correct from
                     QuestionBank where exam_id='{$exam_id}'";
-
+                    echo $get_progress;
                     $result = mysqli_query($conn,$exam_question_query);
                     $total_count = mysqli_num_rows($result);
+
+                    $progressString ="";
+
+                    if(mysqli_num_rows($result_prev) == 0){
+                        for($i=0;$i<$total_count;$i++)
+                            $progressString .= "0";
+                    } else {
+                        $row_prev = $result_prev->fetch_assoc();
+                        $progressString = $row_prev['progress'];
+                    }
+                    echo $progressString;
                     $q_no = 0;
                     foreach($result as $row){
                         $q_no += 1;
@@ -120,15 +134,22 @@
                             $choices = explode('|',$row['choices']);
                             $ans_no = 1;
                             foreach($choices as $option){
+                                if($progressString[$q_no-1] == $ans_no){
+                                    //this is what they selected before
+                                    $checked="checked";
+                                } else {
+                                    $checked = "";
+                                }
+
                                 $return .=
-                                '
-                                <div class="radio">
-                                    <label>
+                                 '<div class="radio">
+                                     <label>
                                         <input
                                         type="radio"
                                         name="q_no'.$q_no.'"
                                         value="'. $ans_no.'"
-                                        />';
+                                        '.$checked .
+                                        '/>';
                             $return .= $option .
                                 '   </label>
                                 </div>';
@@ -145,29 +166,7 @@
 
                         echo $return;
                     }
-                    ?>
-                        <!-- <div class="row">
-                            <div
-                                class="col"
-                                style="height:400px; overflow-y: scroll;"
-                            >
-                                <h6>Question <span id="question_no">1</span></h6>
-                                <hr />
-                                <span id="question">
-                                    The dark coloured outer edge of the cheek cell
-                                    is called?</span
-                                >
-                                <hr />
-                                <input type="checkbox" />
-                                <span id="option_1">cell membrane</span> <br />
-                                <input type="checkbox" />
-                                <span id="option_2">cytoplasm</span> <br />
-                                <input type="checkbox" />
-                                <span id="option_3">nucleus</span> <br />
-                                <input type="checkbox" />
-                                <span id="option_4">cell wall</span> <br />
-                            </div>
-                        </div> -->
+                    // ?>
                         <div class="row">
                             <div class="col">
                                 <button class="btn"
@@ -314,6 +313,16 @@
                 </div>
             </div>
         </div>
+        <form id="progressForm" action="instructionPage.html" method="POST">
+            <input type="text" id="progessInput" name="savedProgress" value="start" hidden>
+            <input type="text" id="time_left" name="time_left" value="1000" hidden>
+            <?php     
+                $conn= OpenCon();
+                $exam_id = mysqli_real_escape_string($conn,$_POST['exam_id']);
+                echo '
+                <input type="text" name="exam_id" value="'.$_POST['exam_id'].'" hidden>';
+            ?>
+        </form>
         <script>
             var blinkOn = 0;
             function remainingTime(time_limit) {
@@ -342,19 +351,38 @@
                 ).innerText = new Date().toTimeString();
                 setTimeout(setTime, 1000);
             }
+
+            function getTime(){
+                //TODO @sandeep
+            }
+
             setTime();
             //remainingTime(600); //call this with the exam's time limit
             <?php
              $conn= OpenCon();
-
              $exam_id = mysqli_real_escape_string($conn,$_POST['exam_id']);
-             $exam_time_query ="select time_limit_sec from ExamType where exam_id = '{$exam_id}' LIMIT 1";
-             $result = mysqli_query($conn,$exam_time_query);
 
-             $row = $result->fetch_assoc();
-             $time = $row['time_limit_sec'];
-             
+
+             $get_remaining_time = "select time_left from ExamAttempt where exam_id='{$exam_id}' AND student_id LIKE '" . 
+             "{$_SESSION['email_id']}'"; 
+
+             $result = mysqli_query($conn,$get_remaining_time);
+
+             if(mysqli_num_rows($result) == 0){
+                $exam_time_query ="select time_limit_sec from ExamType where exam_id = '{$exam_id}' LIMIT 1";
+                $result = mysqli_query($conn,$exam_time_query);
+   
+                $row = $result->fetch_assoc();
+                $time = $row['time_limit_sec'];
+             } else {
+                $row = $result->fetch_assoc();
+                $time = $row['time_left'];
+             }
+                
              echo "remainingTime(".$time.");";
+
+
+             
             ?>
 
              //onlick listener on prev, get byclassname show, get the id, then + 1 etc logic here
@@ -401,6 +429,34 @@
                 document.getElementById(q_no).className = "show_question row";
             }
 
+            function saveProgress(){
+                var stringProgress = "";
+                var i = 1;
+                for(i=1; i <= max_q_no; i++){
+                 //for each radio group: q_no1, q_no2 etc, get the value;
+                    var radioGroup = "q_no"+i;
+                    var question = document.getElementsByName(radioGroup);
+                    // console.log(radioGroup);
+                    var selectedOption ="0";
+                    for(var j = 0; j < question.length; j++) {
+                        if(question[j].checked){
+                            selectedOption = question[j].value;
+                        }
+                    }
+                    //console.log(selectedOption);
+                    stringProgress+=selectedOption;
+                    //TODO get if it's set for review
+                }
+                console.log(stringProgress);
+                document.getElementById("progessInput").value = stringProgress;
+
+                document.getElementById("time_left").value = 100;
+                document.getElementById('progressForm').submit();
+
+            }
+            // TODO on tab close, or back button, or refresh
+            // saveProgress();
+            // window.onunload = saveProgress;
         </script>
     </body>
 </html>
