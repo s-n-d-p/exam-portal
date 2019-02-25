@@ -10,7 +10,7 @@
         <?php     
             include '../db/db_connection.php';
 
-            var_dump($_REQUEST);
+            // var_dump($_REQUEST);
             session_start();
             if($_SESSION['sid']!=session_id() || !isset($_POST['exam_id'])){
                 header("location:homePage.html");
