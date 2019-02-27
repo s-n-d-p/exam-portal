@@ -96,7 +96,7 @@
                             $result = mysqli_query($conn,$exam_ids_query);
 
                             $return = "<br  ><br /><h4>Select an exam:</h4><br />";
-                            $return .= '<table class="table table-bordered">
+                            $return .= '<table id ="exam_table" class="table table-bordered">
                                             <thead>
                                                 <tr>
                                                     <th>Name</th>
@@ -110,21 +110,6 @@
                             foreach($result as $row){ 
                                 $exam_id = $row['exam_id'];
                             
-                                $get_remaining_time = "select time_left from ExamAttempt where exam_id='{$exam_id}' AND student_id LIKE '" . 
-                                                      "{$_SESSION['email_id']}'"; 
-                                // echo $get_remaining_time;
-                                $result_prev = mysqli_query($conn,$get_remaining_time);
-                                         
-                                if(mysqli_num_rows($result_prev) == 0){
-                                    $time = $row['time_limit_sec'];
-                                    $attemped = 'Unattempted';
-                                } else {
-                                    $row_prev = $result_prev->fetch_assoc();
-                                    $time = $row_prev['time_left'];
-                                    $attemped = 'Incomplete';
-                                }
-
-
                                 $exam_results_query = "select * from ExamResult where exam_id = " .
                                                        $row['exam_id'] .
                                                       " AND student_id LIKE '" . 
@@ -132,22 +117,22 @@
                                 $result_2 = mysqli_query($conn,$exam_results_query);
 
                                 if(mysqli_num_rows($result_2) == 0){
-                                    $return .= "<tr>" .
+                                    $return .= "<tr id = " .$row['exam_id']. ">" .
                                                     "<td><button class='btn btn-link' type='submit' name='exam_id' value='" . $row['exam_id'] . "'>" . 
                                                     $row['exam_name'] . "</button>
                                                     </td>" . 
-                                                    "<td>" . $time . "</td>";
-                                        $return .=  '<td>'. $attemped .'</td>'.
+                                                    "<td>". $row['time_limit_sec'] ."</td>";
+                                        $return .=  '<td> Not submitted </td>'.
                                                      '<td>N/A</td>';
                                 } else {
-                                    $return .= "<tr>" .
+                                    $return .= "<tr id = " .$row['exam_id']. ">" .
                                                     "<td><button disabled class='btn btn-link' type='submit' name='exam_id' value='". $row['exam_id'] . "'>" . 
                                                     $row['exam_name'] . "</button></td>" . 
                                                     "<td>" . $row['time_limit_sec'] . "</td>";
                                                     $row = $result_2->fetch_assoc(); 
                                                     $score = $row['result']; 
                                                     
-                                        $return .=  '<td>Attempted</td>'.
+                                        $return .=  '<td> Submitted </td>'.
                                                     '<td>'. $score .'</td>';
                                 } 
                                     $return .= "</tr>";
@@ -160,6 +145,7 @@
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
