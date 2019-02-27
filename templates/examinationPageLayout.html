@@ -5,6 +5,9 @@
         <link rel="stylesheet" href="../static/css/styles.css" />
         <link rel="icon" href="../static/images/icon.jpg" />
         <title>Questions | Exam Portal</title>
+        <script>
+            var questionCount;
+        </script>
     </head>
     <body>
         <?php     
@@ -97,6 +100,7 @@
                     // echo $get_progress;
                     $result = mysqli_query($conn,$exam_question_query);
                     $total_count = mysqli_num_rows($result);
+                    echo "<script>questionCount =" . $total_count . "</script>";
 
                     $progressString ="";
 
@@ -180,6 +184,7 @@
                                     type="button"
                                     id="review"
                                     style="background-color:orange;"
+                                    onclick="reviewQuestion()"
                                 >
                                     Review
                                 </button>
@@ -188,6 +193,7 @@
                                     id="reset"
                                     type="button"
                                     style="background-color:red;"
+                                    onclick="reset_answer()"
                                 >
                                     Reset Answer
                                 </button>
@@ -225,12 +231,13 @@
                             <div
                                 class="col"
                                 style="text-align: center; margin-top: 20px"
+                                id = "qno_buttons"
                             >
-                                <button style="border-radius: 100%">1</button>
+                                <!-- <button style="border-radius: 100%">1</button>
                                 <button style="border-radius: 100%">2</button>
                                 <button style="border-radius: 100%">3</button>
                                 <button style="border-radius: 100%">4</button>
-                                <button style="border-radius: 100%">5</button>
+                                <button style="border-radius: 100%">5</button> -->
                             </div>
                         </div>
                         <div class="row">
@@ -285,14 +292,14 @@
                                     <li class="list-group-item">
                                         <span
                                             class="dot"
-                                            style="background-color:yellow;"
+                                            style="background-color:goldenrod;"
                                         ></span
                                         >&nbsp;&nbsp;&nbsp;Not Answered
                                     </li>
                                     <li class="list-group-item">
                                         <span
                                             class="dot"
-                                            style="background-color:red;"
+                                            style="background-color:orange;"
                                         ></span
                                         >&nbsp;&nbsp;&nbsp;Review
                                     </li>
@@ -419,7 +426,23 @@
                     document.getElementById("next").disabled = true;
                 }
                 document.getElementById(q_no).className = "hide_question";
+                if(document.getElementById("button" + q_no).style.backgroundColor != "orange")
+                    document.getElementById("button" + q_no).style.backgroundColor = "";
+                var question = document.getElementsByName("q_no" + q_no);
+                var f = 0;
+                for (var i = 0; i < question.length; i++) {
+                    if (question[i].checked) {
+                        f = 1;
+                    }
+                }
+                if (f) {
+                    document.getElementById("button" + q_no).style.backgroundColor = "green";
+                } else {
+                    if (document.getElementById("button" + q_no).style.backgroundColor != "orange")
+                        document.getElementById("button" + q_no).style.backgroundColor = "goldenrod";
+                }
                 q_no = parseInt(q_no)+1;
+                document.getElementById("button" + q_no).style.backgroundColor = "blue";
                 document.getElementById(q_no).className = "show_question row";
                 
             }
@@ -434,7 +457,25 @@
                     document.getElementById("prev").disabled = true;
                 }
                 document.getElementById(q_no).className = "hide_question";
+
+                if (document.getElementById("button" + q_no).style.backgroundColor != "orange")
+                    document.getElementById("button" + q_no).style.backgroundColor = "";
+                var question = document.getElementsByName("q_no" + q_no);
+                var f = 0;
+                for(var i = 0; i < question.length; i++){
+                    if(question[i].checked){
+                        f = 1;
+                    }
+                }
+                if(f){
+                    document.getElementById("button" + q_no).style.backgroundColor = "green";
+                } else{
+                    if(document.getElementById("button" + q_no).style.backgroundColor != "orange")
+                        document.getElementById("button" + q_no).style.backgroundColor = "goldenrod";
+                }
+
                 q_no = parseInt(q_no)-1;
+                document.getElementById("button" + q_no).style.backgroundColor = "blue";
                 document.getElementById(q_no).className = "show_question row";
             }
 
@@ -450,6 +491,7 @@
                     for(var j = 0; j < question.length; j++) {
                         if(question[j].checked){
                             selectedOption = question[j].value;
+                            break;
                         }
                     }
                     //console.log(selectedOption);
@@ -463,8 +505,74 @@
                 document.getElementById('progressForm').submit();
 
             }
+
+            function reset_answer(){
+                var current = document.getElementsByClassName("show_question");
+                var q_no = current[0].id;
+                var radioGroup = 'q_no' + q_no;
+                var question = document.getElementsByName(radioGroup);
+                for(var j = 0; j < question.length; j++){
+                    question[j].checked = false;
+                }
+            }
+            function qno_buttons(){
+                // <button style="border-radius: 100%">5</button>
+                var html = "";
+                for(var i = 1; i <= questionCount; i++){
+                    html += '<button class="font-weight-bold text-white" onclick="navQues(' + i + ')" style="border-radius: 100%; background-color:grey;" id="button' + i + '">' + i + '</button>'
+                }
+                document.getElementById("qno_buttons").innerHTML = html;
+                document.getElementById("button1").style.backgroundColor = "blue";
+            }
+            function reviewQuestion(){
+                var current = document.getElementsByClassName("show_question");
+                var q_no = current[0].id;
+                document.getElementById("button" + q_no).style.backgroundColor = "orange";
+            }
+
+            function navQues(curr_q_no){
+                var current = document.getElementsByClassName("show_question");
+                var q_no = current[0].id;
+                var question = document.getElementsByName("q_no" + q_no);
+                var f = 0;
+                for(var i = 0; i < question.length; i++){
+                    if(question[i].checked){
+                        f = 1;
+                    }
+                }
+                if(f) document.getElementById("button" + q_no).style.backgroundColor = "green";
+                else{
+                    if(document.getElementById("button" + q_no).style.backgroundColor != "orange"){
+                        document.getElementById("button" + q_no).style.backgroundColor = "goldenrod";
+                    }
+                }
+                document.getElementById(q_no).className = "hide_question";  
+                document.getElementById(curr_q_no).className = "show_question";  
+                document.getElementById("button" + curr_q_no).style.backgroundColor = "blue";
+
+                if(curr_q_no == questionCount){
+                    document.getElementById("next").disabled = true;
+                    if(curr_q_no != 1){
+                        document.getElementById("prev").disabled = false;
+                    }
+                }
+                else if(curr_q_no == 1){
+                    document.getElementById("prev").disabled = true;
+                    if(curr_q_no != questionCount){
+                        document.getElementById("next").disabled = false;
+                    }
+                } else{
+                    document.getElementById("prev").disabled = false;
+                    document.getElementById("next").disabled = false;
+                }
+                
+            }
+
             // TODO on tab close, or back button, or refresh
             window.onunload = saveProgress;
+
+            // renders buttons with qnos. on them
+            qno_buttons();
         </script>
     </body>
 </html>
